@@ -41,7 +41,7 @@ export class LootBoxController {
       }
 
       await userService.addUserRewardById({_id: user._id}, rewardToSet?.amount)
-      res.send({lootBox, reward: rewardToSet?.amount, history})
+      res.send({lootBox: lootBoxToFind, reward: rewardToSet?.amount, history})
     } catch (e) {
       throw new ErrorHandler(StatusCodes.BAD_REQUEST, e?.message ? e?.message : 'BAD_REQUEST');
     }
