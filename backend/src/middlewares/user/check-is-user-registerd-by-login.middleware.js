@@ -3,14 +3,13 @@ import { CustomErrors, ErrorHandler} from "../../errors/index.js";
 import {StatusCodes} from "http-status-codes";
 
 export const checkIsUserRegisteredByLoginMiddleware = async (req, res, next) => {
-  const { username } = req.body;
+  const { name } = req.body;
 
-  const userByLogin = await userService.findOneByParams({name: username});
-
+  const userByLogin = await userService.findOneByParams({name});
   if (userByLogin) {
     return next(new ErrorHandler(
       StatusCodes.FORBIDDEN,
-      CustomErrors.BAD_REQUEST_USER_ACTIVATED.message,
+      CustomErrors.BAD_REQUEST_USER_REGISTERED.message,
     ));
   }
 
