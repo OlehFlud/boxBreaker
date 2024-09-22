@@ -19,9 +19,7 @@ class App {
 
     this.app.use(morgan('dev'));
     this.app.use(helmet());
-    this.app.use(cors({
-      origin: this.configureCors
-    }));
+    this.app.use(cors());
 
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: true}));
