@@ -15,6 +15,7 @@ import {
 } from '../actions/playerActions';
 import axios from "axios";
 import {showToast} from "../actions/toastAction";
+import {API_URL} from "../../const/index";
 
 export function* fetchPlayersSaga() {
   try {
