@@ -18,7 +18,7 @@ import {showToast} from "../actions/toastAction";
 
 export function* fetchPlayersSaga() {
   try {
-    const players = yield call(axios.get, 'http://localhost:3001/users'); // API виклик для логіну
+    const players = yield call(axios.get, `${API_URL}/users`); // API виклик для логіну
 
     console.log('players',players);
     yield put({ type: FETCH_PLAYERS_SUCCESS, payload: players?.data });

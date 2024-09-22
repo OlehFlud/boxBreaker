@@ -12,10 +12,11 @@ import {
   LOGOUT,
 } from '../actions/authAction';
 import {showToast} from "../actions/toastAction";
+import {API_URL} from "../../const/index";
 
 function* login(action) {
   try {
-    const response = yield call(axios.post, 'http://localhost:3001/auth', {
+    const response = yield call(axios.post, `${API_URL}/auth`, {
       username: action.payload?.name,
       password: action.payload?.password,
     });
@@ -32,7 +33,7 @@ function* login(action) {
 
 function* register(action) {
   try {
-    const response = yield call(axios.post, 'http://localhost:3001/users', action.payload);
+    const response = yield call(axios.post, `${API_URL}/users`, action.payload);
     const { accessToken } = response.data;
 
     localStorage.setItem('token', accessToken);
@@ -45,7 +46,7 @@ function* register(action) {
 
 function* logout(action) {
   try {
-    const response = yield call(axios.post, 'http://localhost:3001/auth/logout', {accessToken: action.payload});
+    const response = yield call(axios.post, `${API_URL}/auth/logout`, {accessToken: action.payload});
     if (response)
     localStorage.removeItem('token');
 

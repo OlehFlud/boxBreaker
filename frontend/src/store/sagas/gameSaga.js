@@ -5,10 +5,11 @@ import {fetchPlayers} from "../actions/playerActions";
 import {openModalAction} from "../actions/modalAction";
 import {loadHistory} from "../actions/historyAction";
 import {showToast} from "../actions/toastAction";
+import {API_URL} from "../../const/index";
 
 function* handleLoadLootBox(action) {
   console.log('action',action);
-  const response = yield call(axios.get, 'http://localhost:3001/lootbox', action.payload);
+  const response = yield call(axios.get, `${API_URL}/lootbox`, action.payload);
   const { lootBoxes } = response.data;
   yield put(lootBoxesLoaded(lootBoxes));
 }
@@ -16,7 +17,7 @@ function* handleLoadLootBox(action) {
 function* handleOpenLootBox(action) {
   try {
     const { id, token } = action.payload;
-    const {data} = yield call(axios.post, `http://localhost:3001/lootbox/open/${id}`, {},{headers: { Authorization: token}})
+    const {data} = yield call(axios.post, `${API_URL}/lootbox/open/${id}`, {},{headers: { Authorization: token}})
 
     yield put(lootBoxOpened(id, data?.reward, data?.history));
     yield put(openModalAction(`You opened LootBox ${data?.lootBox?.name} and received: ${data.reward} Gold Coins!`))
@@ -31,7 +32,7 @@ function* handleOpenLootBox(action) {
 
 function* startNewRound() {
   try {
-    const {data} = yield call(axios.post, `http://localhost:3001/lootbox/default`)
+    const {data} = yield call(axios.post, `${API_URL}/lootbox/default`)
     const { lootBoxes } = data;
     yield put(lootBoxesLoaded(lootBoxes));
   } catch (error) {
